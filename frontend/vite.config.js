@@ -9,8 +9,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['icons/icon-192.png', 'icons/icon-512.png'],
       manifest: {
-        name: 'SplitShare — split bills with friends',
-        short_name: 'SplitShare',
+        name: 'BuddyBill — split bills with friends',
+        short_name: 'BuddyBill',
         description: 'Track shared expenses and settle up with friends and roommates.',
         theme_color: '#2B6E5E',
         background_color: '#FBF9F5',
