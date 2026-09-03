@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { api } from '../api.js';
 import CreateGroupModal from '../components/CreateGroupModal.jsx';
 import Avatar from '../components/Avatar.jsx';
+import SkeletonList from '../components/SkeletonList.jsx';
 
 export default function Dashboard() {
   const { token, user, logout } = useAuth();
@@ -43,7 +44,7 @@ export default function Dashboard() {
       <div className="screen">
         {notice && <div className="error-banner" style={{ background: '#FBF3DC', color: '#8A6D1D', border: '1px solid #F0DFAE' }}>{notice}</div>}
 
-        {groups === null && <p style={{ color: 'var(--ink-muted)' }}>Loading…</p>}
+        {groups === null && <SkeletonList rows={3} />}
 
         {groups && groups.length === 0 && (
           <div className="empty-state">
