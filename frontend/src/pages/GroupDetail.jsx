@@ -5,7 +5,8 @@ import { api } from '../api.js';
 import Avatar from '../components/Avatar.jsx';
 import AddExpenseModal from '../components/AddExpenseModal.jsx';
 import SettleUpModal from '../components/SettleUpModal.jsx';
-import { formatMoney, formatDateChip } from '../format.js';
+import SkeletonList from '../components/SkeletonList.jsx';
+import { formatMoney, formatDateChip, timeAgo } from '../format.js';
 
 export default function GroupDetail() {
   const { id } = useParams();
@@ -65,7 +66,9 @@ export default function GroupDetail() {
           <h1>Loading…</h1>
           <div style={{ width: 30 }} />
         </div>
-        {error && <div className="screen"><div className="error-banner">{error}</div></div>}
+        <div className="screen">
+          {error ? <div className="error-banner">{error}</div> : <SkeletonList rows={4} />}
+        </div>
       </>
     );
   }
@@ -84,10 +87,11 @@ export default function GroupDetail() {
       </div>
 
       <div className="screen">
-        <div className="summary-banner">
+        <div className={`summary-banner ${myBalance.balanceCents === 0 ? 'celebrate' : ''}`}>
           <div className="label">
             {myBalance.balanceCents === 0 ? "You're all settled up" : myBalance.balanceCents > 0 ? 'You are owed' : 'You owe'}
           </div>
+          {myBalance.balanceCents === 0 && <div className="emoji" style={{ fontSize: 28 }}>🎉</div>}
           {myBalance.balanceCents !== 0 && (
             <div className={`value amount ${myBalance.balanceCents > 0 ? 'tag-positive' : 'tag-negative'}`}>
               {formatMoney(myBalance.balanceCents)}
@@ -117,6 +121,7 @@ export default function GroupDetail() {
                   <div className="details">
                     <div className="desc">{exp.description}</div>
                     <div className="sub">{exp.paid_by_name} paid {formatMoney(exp.amount_cents)}</div>
+                    <div className="sub" style={{ opacity: 0.7, fontSize: 12, marginTop: 1 }}>{timeAgo(exp.created_at)}</div>
                   </div>
                   <div className="amounts">
                     <div className="total amount">{formatMoney(exp.amount_cents)}</div>
