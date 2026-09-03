@@ -491,3 +491,112 @@ a {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* ---- Motion ---- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .modal-sheet {
+    animation: sheet-up 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .modal-overlay {
+    animation: overlay-fade 0.2s ease;
+  }
+
+  .fade-in-item {
+    animation: fade-in-up 0.35s ease both;
+  }
+
+  .group-tile, .ledger-row, .balance-row {
+    animation: fade-in-up 0.3s ease both;
+  }
+
+  .group-tile:nth-child(2), .ledger-row:nth-child(2), .balance-row:nth-child(2) { animation-delay: 0.03s; }
+  .group-tile:nth-child(3), .ledger-row:nth-child(3), .balance-row:nth-child(3) { animation-delay: 0.06s; }
+  .group-tile:nth-child(4), .ledger-row:nth-child(4), .balance-row:nth-child(4) { animation-delay: 0.09s; }
+  .group-tile:nth-child(5), .ledger-row:nth-child(5), .balance-row:nth-child(5) { animation-delay: 0.12s; }
+  .group-tile:nth-child(n+6), .ledger-row:nth-child(n+6), .balance-row:nth-child(n+6) { animation-delay: 0.15s; }
+
+  .empty-state .emoji {
+    animation: gentle-bounce 2.2s ease-in-out infinite;
+  }
+
+  .celebrate .emoji {
+    animation: celebrate-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+
+@keyframes sheet-up {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes overlay-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gentle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes celebrate-pop {
+  0% { transform: scale(0.6) rotate(-8deg); opacity: 0; }
+  60% { transform: scale(1.15) rotate(4deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* ---- Skeleton loaders ---- */
+
+.skeleton {
+  background: linear-gradient(90deg, #ECE8DC 25%, #F5F2E9 37%, #ECE8DC 63%);
+  background-size: 400% 100%;
+  animation: skeleton-shimmer 1.4s ease infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.skeleton-tile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  margin-bottom: 12px;
+}
+
+.skeleton-tile .skeleton-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.skeleton-tile .skeleton-lines {
+  flex: 1;
+}
+
+.skeleton-line {
+  height: 12px;
+  margin-bottom: 8px;
+}
+
+.skeleton-line:last-child { margin-bottom: 0; }
+
+/* ---- Celebration banner ---- */
+
+.summary-banner.celebrate {
+  background: linear-gradient(135deg, #F0F7F4, var(--surface));
+  border-color: #BFE0D4;
+}
